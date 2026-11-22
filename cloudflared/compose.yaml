@@ -1,17 +1,14 @@
 services:
-  cloudflared:
-    container_name: cloudflared
+  cloudflared-multi:
+    container_name: cloudflared-multi
     image: cloudflare/cloudflared:latest
     restart: unless-stopped
 
     command: tunnel --no-autoupdate run
-
     environment:
-      TUNNEL_TOKEN: ${TUNNEL_TOKEN}
-
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN_MULTI}
     networks:
-      - proxy
-
+      - prod-multi
     logging:
       driver: json-file
       options:
@@ -19,6 +16,6 @@ services:
         max-file: "5"
 
 networks:
-  proxy:
+  prod-multi:
     external: true
-    name: proxy
+    name: prod-multi
